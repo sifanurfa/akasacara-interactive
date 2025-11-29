@@ -1,8 +1,8 @@
 "use-client";
 
 import React from 'react';
-import DevlogSlider from '@/components/DevlogSlider'
-import PortofolioList from '@/components/PortofolioList';
+import DevlogSlider from '@/components/interactive/collection/DevlogSlider'
+import PortofolioList from '@/components/interactive/collection/PortofolioList';
 import Footer from '@/components/Footer';
 const Home = () => {
     return (
