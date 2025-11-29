@@ -1,5 +1,5 @@
 import apiClient from "@/lib/apiClient";
-import { InteractiveGame } from "@/types/api/types";
+import { InteractiveGame, Media } from "@/types/api/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace("/api", "");
 
@@ -16,4 +16,32 @@ export const InteractiveGameApi = {
       return { ...item, image: fullUrl };
     });
   },
+
+  getPopularGame: async () => {
+    const res = await apiClient.get(
+      "/interactive-games?populate=media&filters[popularGame]=true&pagination[limit]=1"
+    );
+
+    const item = res.data.data?.[0];
+    if (!item) return null;
+
+    // base URL image
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace("/api", "") || "";
+
+    // ambil semua media dan format URL-nya
+    const media = (item.media || []).map((m: Media) => ({
+      id: m.id,
+      url: m.url.startsWith("http") ? m.url : `${API_URL}${m.url}`,
+      formats: m.formats,
+    }));
+
+    return {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      trailer: item.trailer,
+      media,
+    };
+  },
+
 };

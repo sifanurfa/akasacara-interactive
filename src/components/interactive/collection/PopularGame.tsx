@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
@@ -9,20 +9,26 @@ import WatchTrailerBtn from "@/components/interactive/collection/WatchTrailerBtn
 import PlayNowBtn from "@/components/interactive/collection/PlayNowBtn";
 import "./InteractiveCollection.css";
 import { CustomArrowProps } from "react-slick";
-
-const slides = [
-  { src: "/assets/game.png", title: "game" },
-  { src: "/assets/game1.png", title: "game" },
-  { src: "/assets/game2.png", title: "game" },
-  { src: "/assets/game3.png", title: "game" },
-  { src: "/assets/game.png", title: "game" },
-  { src: "/assets/game1.png", title: "game" },
-  { src: "/assets/game2.png", title: "game" },
-  { src: "/assets/game3.png", title: "game" },
-];
+import { InteractiveGameApi } from "@/lib/api";
+import { InteractiveGame } from "@/types/api/types";
 
 export default function PopularGame() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [popularGame, setPopularGame] = useState<InteractiveGame | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await InteractiveGameApi.getPopularGame();
+        setPopularGame(data);
+      } catch (err) {
+        console.error("Failed to fetch popular game:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!popularGame) return null;
 
   const NextArrow = ({ onClick }: CustomArrowProps) => {
     return (
@@ -77,11 +83,12 @@ export default function PopularGame() {
     <div className="flex flex-col relative pb-section items-center gap-[-40px] self-stretch">
       <div className="flex relative w-full aspect-video overflow-hidden flex-col items-center gap-2.5 self-stretch">
         <Image
-          src={slides[currentIndex].src}
-          alt={slides[currentIndex].title}
+          src={popularGame.media[currentIndex].url}
+          alt={popularGame.title}
           fill
           className="object-cover transition-all duration-500"
         />
+        <div className="absolute inset-0 bg-black/70"></div>
 
         <div className="absolute inset-y-0 h-screen left-0 w-2/3 px-[89px] z-10 flex flex-col items-start justify-center gap-8">
           <div className="flex flex-col justify-center items-start gap-md self-stretch">
@@ -100,35 +107,33 @@ export default function PopularGame() {
 
             <div className="flex flex-col items-start self-stretch">
               <div className="headline-1 vfx-text-title self-stretch">
-                Ganyang Setan Alas! The Game
+                {popularGame.title}
               </div>
             </div>
 
             <div className="sub-heading-reg vfx-text-subtitle-1 self-stretch">
-              Ganyang Setan Alas! The Game is a single-player shooter set in a
-              haunted Indonesian forest, where four students must survive
-              relentless zombie attacks and escape a cursed fate.
+              {popularGame.description}
             </div>
           </div>
 
           <div className="flex h-[68px] items-center gap-m">
             <PlayNowBtn />
-            <WatchTrailerBtn />
+            <WatchTrailerBtn trailerUrl={popularGame.trailer || ""} />
           </div>
         </div>
       </div>
 
       <div className="thumbnail-slider-container">
         <Slider {...thumbSettings}>
-          {slides.map((slide, index) => (
-            <div key={index} className="px-2 gap-m">
+          {popularGame.media.map((m, i) => (
+            <div key={i} className="px-2 gap-m">
               <button
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => setCurrentIndex(i)}
                 className={`relative w-full aspect-39/22 overflow-hidden transition-all duration-300`}
               >
                 <Image
-                  src={slide.src}
-                  alt={slide.title}
+                  src={m.url}
+                  alt={popularGame.title}
                   fill
                   className="object-cover"
                 />
