@@ -2,17 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import "./Announcement.css";
-import Link from "next/link";
 import { AnnouncementFilmApi } from "@/lib/api";
 import { AnnouncementFilm } from "@/types/api/types";
 import { useRouter } from "next/navigation";
-
-// Type artikel
-interface Article {
-  date: string;
-  title: string;
-  image: string;
-}
 
 const HighlightSection = () => {
   const [mainHighlight, setMainHighlight] = useState<AnnouncementFilm | null>(null);
@@ -25,7 +17,7 @@ const HighlightSection = () => {
     const fetchData = async () => {
       try {
         // Ambil semua data highlight dari API
-        const data = await AnnouncementFilmApi.getHighlight({ sort: "desc" });
+        const data = await AnnouncementFilmApi.getHighlight({ limit: 4, sort: "desc" });
 
         if (data.length > 0) {
           // Ambil item pertama sebagai main highlight

@@ -7,41 +7,6 @@ import ArticleCard from "@/components/film/announcement/ArticleCard";
 import { AnnouncementFilmApi } from "@/lib/api";
 import { AnnouncementFilm } from "@/types/api/types";
 
-const announcements = [
-  {
-    id: 1,
-    title:
-      "Menyakiti Laut dan Saatnya Penghakiman: Film Horor Darah Nyai Tayang Serempak 21 Agustus 2025",
-    date: "21 Januari 2025",
-    image: "/assets/darah_nyai_2.png",
-    link: "#",
-  },
-  {
-    id: 2,
-    title:
-      "Menyakiti Laut dan Saatnya Penghakiman: Film Horor Darah Nyai Tayang Serempak 21 Agustus 2025",
-    date: "21 Januari 2025",
-    image: "/assets/darah_nyai_2.png",
-    link: "#",
-  },
-  {
-    id: 3,
-    title:
-      "Menyakiti Laut dan Saatnya Penghakiman: Film Horor Darah Nyai Tayang Serempak 21 Agustus 2025",
-    date: "21 Januari 2025",
-    image: "/assets/darah_nyai_2.png",
-    link: "#",
-  },
-  {
-    id: 4,
-    title:
-      "Menyakiti Laut dan Saatnya Penghakiman: Film Horor Darah Nyai Tayang Serempak 21 Agustus 2025",
-    date: "21 Januari 2025",
-    image: "/assets/darah_nyai_2.png",
-    link: "#",
-  },
-];
-
 function Article() {
   const { id } = useParams(); // dynamic segment is `[id]` so param name is `id`
   const [article, setArticle] = useState<AnnouncementFilm | null>(null);
@@ -57,7 +22,6 @@ function Article() {
 
       try {
         const data = await AnnouncementFilmApi.getArticlebyId(docId);
-        // defensive: API might return nested attributes depending on backend
         if (!data) {
           console.warn(
             "AnnouncementFilmApi.getArticle returned empty for id:",
@@ -67,8 +31,6 @@ function Article() {
           return;
         }
 
-        // The API wrapper `AnnouncementFilmApi.getArticle` already normalizes the response
-        // into the `AnnouncementFilm` shape, so use it directly.
         setArticle(data as AnnouncementFilm);
       } catch (err) {
         console.error("Failed to fetch article:", err);
@@ -82,7 +44,7 @@ function Article() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await AnnouncementFilmApi.getAnnouncement({ limit:4, sort:"desc" });
+        const data = await AnnouncementFilmApi.getBlogs({ limit:4, sort:"desc" });
         setLatest(data);
       } catch (err) {
         console.error("Failed to fetch works:", err);

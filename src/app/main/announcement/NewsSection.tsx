@@ -13,10 +13,10 @@ interface Article {
 }
 
 // Type tab 
-type ArticleTabs = "All" | "News" | "Press" | "Announcement";
+type ArticleTabs = "All" | "News" | "Press" | "Blog";
 
 // Daftar tab 
-const tabs: ArticleTabs[] = ["All", "News", "Press", "Announcement"];
+const tabs: ArticleTabs[] = ["All", "News", "Press", "Blog"];
 
 // Konstanta untuk jumlah item per slide
 const ITEMS_PER_SLIDE = 4;
@@ -29,7 +29,7 @@ export default function NewsSection() {
     All: [],
     News: [],
     Press: [],
-    Announcement: [],
+    Blog: [],
   });
   const router = useRouter();
 
@@ -39,14 +39,14 @@ export default function NewsSection() {
         const all = await AnnouncementFilmApi.getAll();
         const news = await AnnouncementFilmApi.getNews();
         const press = await AnnouncementFilmApi.getPress();
-        const announcement = await AnnouncementFilmApi.getAnnouncement();
+        const blogs = await AnnouncementFilmApi.getBlogs();
 
         setArticlesData((prev) => ({
           ...prev,
           All: all,
           News: news,
           Press: press,
-          Announcement: announcement,
+          Blog: blogs,
         }));
       } catch (err) {
         console.error("Failed to fetch announcements:", err);
@@ -83,7 +83,7 @@ export default function NewsSection() {
   // buka halaman article / eksternal link
   const handlePress = (item: Article & { announceType?: string; documentId?: string; urlMedia?: string }) => {
     const type = item.announceType?.toLowerCase();
-    if ((type === "announcement" || type === "news") && item.documentId) {
+    if ((type === "blog" || type === "news") && item.documentId) {
       router.push(`/main/article/${item.documentId}`);
     } else if (item.urlMedia) {
       window.open(item.urlMedia, "_blank", "noopener,noreferrer");
@@ -100,8 +100,8 @@ export default function NewsSection() {
             onClick={() => handleTabChange(tab)}
             className={`tab-title transition-colors duration-300 ${
               activeTab === tab
-                ? "text-[#D4AF37] underline underline-offset-8 decoration-1"
-                : "text-white hover:text-[#D4AF37] cursor-pointer"
+                ? "text-akasacara-yellow underline underline-offset-8 decoration-1"
+                : "text-white hover:text-akasacara-yellow cursor-pointer"
             } font-medium`}
           >
             {tab}
@@ -113,7 +113,7 @@ export default function NewsSection() {
       <div className="self-stretch px-container flex flex-col justify-start">
         {getCurrentSlideArticles().map((item, idx) => (
           <div key={idx} onClick={() => handlePress(item)} className="w-full gap-7">
-            <div className="flex flex-col lg:flex-row items-center self-stretch group hover:bg-[#D4AF37] transition-colors duration-300 cursor-pointer">
+            <div className="flex flex-col lg:flex-row items-center self-stretch group hover:bg-akasacara-yellow transition-colors duration-300 cursor-pointer">
               <div className="flex-1 w-full relative m-md flex justify-center items-start aspect-video overflow-hidden">
                 <Image
                   src={item.image}
@@ -122,11 +122,11 @@ export default function NewsSection() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex-1 flex flex-col items-start gap-m px-m text-white group-hover:text-black">
+              <div className="flex-1 flex flex-col items-start gap-m px-m pr-md text-white group-hover:text-black">
                 <p className="self-stretch body-reg">
                   {item.date}
                 </p>
-                <h2 className="self-stretch announcement-title line-clamp-4">
+                <h2 className="self-stretch announcement-title line-clamp-3">
                   {item.title}
                 </h2>
               </div>
@@ -149,7 +149,7 @@ export default function NewsSection() {
               onClick={() => goToSlide(index)}
               className={`transition-all duration-300 ${
                 index === currentSlide
-                  ? "w-6 h-6 bg-[#D4AF37] rounded-full"
+                  ? "w-6 h-6 bg-akasacara-yellow rounded-full"
                   : "w-4 h-4 bg-white rounded-full hover:bg-gray-300"
               }`}
               aria-label={`Go to slide ${index + 1}`}

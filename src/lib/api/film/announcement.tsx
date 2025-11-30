@@ -47,7 +47,7 @@ export const AnnouncementFilmApi = {
     return data;
   },
   getNews: async () => {
-    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=News");
+    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=news");
 
     return res.data.data.map((item: AnnouncementFilm) => {
       const url = item.media?.[0]?.url || "";
@@ -67,7 +67,7 @@ export const AnnouncementFilmApi = {
     });
   },
   getPress: async () => {
-    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=Press");
+    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=press");
 
     return res.data.data.map((item: AnnouncementFilm) => {
       const url = item.media?.[0]?.url || "";
@@ -86,8 +86,8 @@ export const AnnouncementFilmApi = {
       return { ...item, image: fullUrl, date: formattedDate };
     });
   },
-  getAnnouncement: async (options?: { limit?: number; sort?: "asc" | "desc" }) => {
-    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=Announcement");
+  getBlogs: async (options?: { limit?: number; sort?: "asc" | "desc" }) => {
+    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=blog");
 
     interface ArticleWithRawDate extends AnnouncementFilm {
       image: string;
