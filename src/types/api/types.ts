@@ -56,3 +56,17 @@ export interface HighlightAnnouncement {
   date: string;
   media: Media[];
 };
+
+export interface Film {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string | null;
+  genre: string | null;
+  link: string | null;
+  image: string;
+  trailer: string | null;
+  awardedFilm: boolean | null;
+  year: number | null;
+  media: Media[];
+}

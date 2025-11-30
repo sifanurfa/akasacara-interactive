@@ -7,7 +7,9 @@ import WorkCard from '@/components/film/home/WorkCard';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnnouncementFilmApi } from "@/lib/api";
+import { FilmApi } from "@/lib/api";
 import { AnnouncementFilm } from "@/types/api/types";
+import { Film } from "@/types/api/types";
 
 const services = [
   {
@@ -48,59 +50,9 @@ const services = [
   },
 ];
 
-const works = [
-  {
-    id: 1,
-    title: "Tengkorak",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Tengkorak adalah cerita tentang manusia yang berhasil menemukan fosil tengkorak. Ketinggian fosil adalah 1,850m dan berusia 170 ribu tahun di Jawa ketika gempa Bantul terjadi pada tahun 2005. Bahkan agama dan ilmuwan bingung dengan temuan ini.",
-  },
-  {
-    id: 2,
-    title: "Darah Nyai",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi provident hic culpa impedit voluptate, fugiat reprehenderit numquam dignissimos, ab aliquid optio! Sequi, nulla laborum sit voluptates amet repellat ipsum magni impedit nihil eveniet corrupti! Commodi!",
-  },
-  {
-    id: 3,
-    title: "Setan Alas! (The Draft!)",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi provident hic culpa impedit voluptate, fugiat reprehenderit numquam dignissimos, ab aliquid optio! Sequi, nulla laborum sit voluptates amet repellat ipsum magni impedit nihil eveniet corrupti! Commodi!",
-  },
-  {
-    id: 4,
-    title: "Hello Ayah",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi provident hic culpa impedit voluptate, fugiat reprehenderit numquam dignissimos, ab aliquid optio! Sequi, nulla laborum sit voluptates amet repellat ipsum magni impedit nihil eveniet corrupti! Commodi!",
-  },
-  {
-    id: 5,
-    title: "Nyanyian Pohon Lontar",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi provident hic culpa impedit voluptate, fugiat reprehenderit numquam dignissimos, ab aliquid optio! Sequi, nulla laborum sit voluptates amet repellat ipsum magni impedit nihil eveniet corrupti! Commodi!",
-  },
-  {
-    id: 6,
-    title: "HK-75: A Guru",
-    detail: "FEATURE FILM & VFX PRODUCTION",
-    year: "2018",
-    image: "/assets/tengkorak.png",
-    caption: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi provident hic culpa impedit voluptate, fugiat reprehenderit numquam dignissimos, ab aliquid optio! Sequi, nulla laborum sit voluptates amet repellat ipsum magni impedit nihil eveniet corrupti! Commodi!",
-  },
-];
-
 function AkasacaraHome() {
   const [press, setPress] = useState<AnnouncementFilm[]>([]);
+  const [film, setFilm] = useState<Film[]>([]);
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
@@ -108,6 +60,18 @@ function AkasacaraHome() {
       try {
         const data = await AnnouncementFilmApi.getHighlight({ limit:3, sort:"desc" });
         setPress(data);
+      } catch (err) {
+        console.error("Failed to fetch works:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await FilmApi.getAll({ limit:6 });
+        setFilm(data);
       } catch (err) {
         console.error("Failed to fetch works:", err);
       }
@@ -188,16 +152,15 @@ function AkasacaraHome() {
           </div>
           
           <div className="flex flex-col items-start gap-xl self-stretch">
-            {works.map((item, index) => (
+            {film.map((item, index) => (
               <WorkCard
                 key={item.id}
                 id={item.id}
                 title={item.title}
-                detail={item.detail}
                 year={item.year}
                 image={item.image}
-                caption={item.caption}
-                isLast={index === works.length - 1}
+                description={item.description}
+                isLast={index === film.length - 1}
               />
             ))}
           </div>

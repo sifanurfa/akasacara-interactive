@@ -10,15 +10,6 @@ import { Comparison, ComparisonHandle, ComparisonItem } from '@/components/ui/sh
 import { BreakdownVFX } from "@/types/api/vfx"
 import { BreakdownVFXApi } from "@/lib/api"
 
-const slides = [
-  { beforeImg: "/assets/SetanAlas1Before.png", afterImg: "/assets/SetanAlas1After.png", title: "Setan Alas" },
-  { beforeImg: "/assets/SerigalaLangitBefore.png", afterImg: "/assets/SerigalaLangitAfter.png", title: "Serigala Langit" },
-  { beforeImg: "/assets/SetanAlas2Before.png", afterImg: "/assets/SetanAlas2After.png", title: "Setan Alas" },
-  { beforeImg: "/assets/SetanAlas3Before.png", afterImg: "/assets/SetanAlas3After.png", title: "Setan Alas" },
-  { beforeImg: "/assets/SultanAgungBefore.png", afterImg: "/assets/SultanAgungAfter.png", title: "Sultan Agung" },
-  { beforeImg: "/assets/TengkorakBefore.png", afterImg: "/assets/TengkorakAfter.png", title: "Tengkorak" },
-];
-
 export default function Breakdown() {
   const [activeIndex, setActiveIndex] = useState(0);
   const thumbSliderRef = useRef<Slider | null>(null);
