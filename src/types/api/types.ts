@@ -67,6 +67,31 @@ export interface Film {
   image: string;
   trailer: string | null;
   awardedFilm: boolean | null;
+  projectType: string | null;
   year: number | null;
+  media: Media[];
+}
+
+export interface Video {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  type: string;
+  image: string;
+  year: number;
+  media: Media[];
+}
+
+export interface VFX {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  link: string;
+  trailer: string;
+  projectType: string;
+  image: string;
+  year: number;
   media: Media[];
 }

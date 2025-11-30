@@ -1,0 +1,16 @@
+.tagline {
+    font-family: var(--font-poppins);
+    font-size: var(--text-title);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--text-lineheight-title);
+}
+
+.cinematic {
+    font-family: var(--font-playfair-display);
+    font-size: var(--text-title);
+    font-style: italic;
+    font-weight: 700;
+    line-height: var(--text-lineheight-title);
+    letter-spacing: 2px;
+}
