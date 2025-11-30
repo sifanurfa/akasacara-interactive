@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { AnnouncementFilmApi } from "@/lib/api";
+import { useRouter } from "next/navigation";
 import "./Announcement.css"
 
 // Type artikel
@@ -30,6 +31,7 @@ export default function NewsSection() {
     Press: [],
     Announcement: [],
   });
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -78,6 +80,16 @@ export default function NewsSection() {
     setCurrentSlide(0);
   };
 
+  // buka halaman article / eksternal link
+  const handlePress = (item: Article & { announceType?: string; documentId?: string; urlMedia?: string }) => {
+    const type = item.announceType?.toLowerCase();
+    if ((type === "announcement" || type === "news") && item.documentId) {
+      router.push(`/main/article/${item.documentId}`);
+    } else if (item.urlMedia) {
+      window.open(item.urlMedia, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <section className="self-stretch py-section flex flex-col items-center gap-2xl">
       {/* MENU */}
@@ -100,7 +112,7 @@ export default function NewsSection() {
       {/* LIST BERITA - SLIDER */}
       <div className="self-stretch px-container flex flex-col justify-start">
         {getCurrentSlideArticles().map((item, idx) => (
-          <div key={idx} className="w-full gap-7">
+          <div key={idx} onClick={() => handlePress(item)} className="w-full gap-7">
             <div className="flex flex-col lg:flex-row items-center self-stretch group hover:bg-[#D4AF37] transition-colors duration-300 cursor-pointer">
               <div className="flex-1 w-full relative m-md flex justify-center items-start aspect-video overflow-hidden">
                 <Image
@@ -114,7 +126,7 @@ export default function NewsSection() {
                 <p className="self-stretch body-reg">
                   {item.date}
                 </p>
-                <h2 className="self-stretch announcement-title">
+                <h2 className="self-stretch announcement-title line-clamp-4">
                   {item.title}
                 </h2>
               </div>

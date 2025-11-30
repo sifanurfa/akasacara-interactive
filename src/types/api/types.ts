@@ -37,11 +37,22 @@ export interface InteractiveGamePortofolio {
 
 export interface AnnouncementFilm {
   id: number;
+  documentId: string;
   identifier: string;
   urlMedia: string;
   title: string;
   announceType: string;
   item: string;
+  date: string;
+  media: Media[];
+};
+
+export interface HighlightAnnouncement {
+  id: number;
+  documentId: string;
+  urlMedia: string;
+  title: string;
+  announceType: string;
   date: string;
   media: Media[];
 };

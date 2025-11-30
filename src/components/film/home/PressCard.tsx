@@ -1,10 +1,11 @@
+"use client";
 import React from 'react'
 import Image from 'next/image';
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "./FilmHome.css"
 
 type PressCardProps = {
-  id: number;
+  documentId: string;
   title: string;
   announceType: string;
   image: string;
@@ -12,9 +13,21 @@ type PressCardProps = {
   date: string;
 };
 
-function PressCard({ id, title, announceType, image, date, urlMedia }: PressCardProps) {
+function PressCard({ documentId, title, announceType, image, date, urlMedia }: PressCardProps) {
+  const router = useRouter();
+  
+  // buka halaman article / eksternal link
+  const handlePress = () => {
+    const type = announceType?.toLowerCase();
+    if ((type === "announcement" || type === "news") && documentId) {
+      router.push(`/main/article/${documentId}`);
+    } else {
+      window.open(urlMedia, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
-    <Link href={urlMedia || "google.com"} target="_blank" rel="noopener noreferrer" className="flex flex-col items-start group cursor-pointer">
+    <div onClick={handlePress} className="flex flex-col items-start group cursor-pointer">
         <div className="flex-1 w-full relative aspect-video overflow-hidden">
             <Image
                 src={image}
@@ -33,7 +46,7 @@ function PressCard({ id, title, announceType, image, date, urlMedia }: PressCard
             </div>
             <div className="press-title aka-text-title self-stretch">{title}</div>
         </div>
-    </Link>
+    </div>
   )
 }
 

@@ -1,39 +1,41 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-type Showreel = {
-  id: number;
-  title: string;
-  date: string;
-  image: string;
-};
-
-const showreels: Showreel[] = [
-  {
-    id: 1,
-    title: "'Tengkorak': A brilliant Indonesian science-fiction",
-    date: "July 21, 2025",
-    image: "/assets/sh.film.png",
-  },
-  {
-    id: 2,
-    title: "'Bumi Manusia': The art of historical storytelling",
-    date: "August 14, 2025",
-    image: "/assets/sh.film.png",
-  },
-  {
-    id: 3,
-    title: "'Gundala': The rise of Indonesian superhero cinema",
-    date: "September 2, 2025",
-    image: "/assets/sh.film.png",
-  },
-];
+import { AnnouncementFilmApi } from "@/lib/api";
+import { AnnouncementFilm } from "@/types/api/types";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ShowreelSlider: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [latestFour, setLatestFour] = useState<AnnouncementFilm[]>([]);
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const router = useRouter();
+
+  // ambil 4 data terbaru
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await AnnouncementFilmApi.getAll({ limit:4, sort:"desc" });
+        setLatestFour(data);
+      } catch (err) {
+        console.error("Failed to fetch works:", err);
+      }
+    };
+    fetchData();
+  }, []);
+    
+  // buka halaman article / eksternal link
+  const handlePress = (item: AnnouncementFilm) => {
+    const type = item.announceType?.toLowerCase();
+    if ((type === "announcement" || type === "news") && item.documentId) {
+      router.push(`/main/article/${item.documentId}`);
+    } else if (item.urlMedia) {
+      window.open(item.urlMedia, "_blank", "noopener,noreferrer");
+    }
+  };
 
   const sliderSettings: Settings = {
     dots: true,
@@ -63,7 +65,7 @@ const ShowreelSlider: React.FC = () => {
         <div 
           className={`transition-all duration-300 rounded-full flex items-center justify-center ${
             i === currentSlide 
-              ? "w-6 h-6 bg-[#D4AF37]" 
+              ? "w-6 h-6 bg-akasacara-yellow" 
               : "w-4 h-4 bg-white"
           }`}
         ></div>
@@ -74,25 +76,29 @@ const ShowreelSlider: React.FC = () => {
   return (
     <div className="showreel-slider relative w-screen h-screen overflow-hidden">
       <Slider {...sliderSettings}>
-        {showreels.map((item) => (
+        {latestFour.map((item) => (
           <div key={item.id} className="relative w-screen min-h-screen">
-            <img
-              src={item.image}
+            <Image
+              src={`${baseURL?.replace(
+                "/api",
+                ""
+              )}${item.media?.[0]?.url.replace("/api/", "/")}`}
               alt={item.title}
+              fill
               className="absolute top-0 left-0 w-full h-full object-cover"
             />
             <div className="px-container py-xl left-0 bottom-0 absolute bg-black/20 backdrop-blur-[1.05px] inline-flex flex-col justify-center items-center gap-[24px] w-full">
-              <div className="self-stretch inline-flex justify-start items-center gap-6">
-                <div className="flex-1 inline-flex flex-col justify-start items-start gap-4">
-                  <div className="justify-start text-white text-6xl font-bold font-['Playfair_Display'] leading-[72px]">
+              <div className="self-stretch inline-flex items-center gap-6 vfx-text-title">
+                <div className="flex-1 inline-flex flex-col items-start gap-4">
+                  <div className="headline-1">
                     {item.title}
                   </div>
-                  <div className="self-stretch justify-start text-white text-3xl font-normal font-['Poppins'] leading-9">
+                  <div className="self-stretch sub-heading-reg">
                     {item.date}
                   </div>
                 </div>
-                <div className="flex justify-start items-start gap-2">
-                  <div className="justify-start text-white text-3xl font-semibold font-['Poppins'] leading-9">
+                <div className="flex items-start gap-2">
+                  <div onClick={() => handlePress(item)} className="button-main cursor-pointer">
                     READ MORE
                   </div>
                 </div>

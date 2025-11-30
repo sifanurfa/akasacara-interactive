@@ -62,9 +62,9 @@ const { logo, alt } = getLogoAndBrand();
   };
 
   return (
-    <div className="w-full px-24 py-24 bg-black inline-flex flex-col justify-start items-start">
-      <div className="self-stretch inline-flex justify-start items-center">
-        <div className="inline-flex flex-col justify-start items-start gap-14">
+    <div className="bg-black flex flex-col py-section px-container items-start">
+      <div className="self-stretch flex items-center">
+        <div className="flex flex-2 flex-col items-start gap-2xl">
           {/* Logo */}
           <img
             src={logo}
@@ -73,7 +73,7 @@ const { logo, alt } = getLogoAndBrand();
           />
 
           {/* Social Media Icons */}
-          <div className="w-72 h-10 inline-flex justify-start items-center gap-8">
+          <div className="h-10 flex items-center gap-l">
             {["Linkedin", "X", "Facebook", "Instagram", "Youtube"].map((social) => (
               <img
                 key={social}
@@ -85,10 +85,10 @@ const { logo, alt } = getLogoAndBrand();
           </div>
         </div>
 
-        <div className="flex-1 inline-flex flex-col justify-center items-end gap-14">
+        <div className="flex-5 flex flex-col justify-center items-end gap-2xl">
           {/* Brand Navigation */}
           <div className="self-stretch flex flex-col justify-center items-end">
-            <div className="flex flex-wrap items-center justify-start lg:justify-end gap-x-8 gap-y-6 text-white">
+            <div className="flex items-center lg:justify-end gap-x-8 gap-y-6 text-white">
               {[
                 { label: "Akasacara Film", href: "/main", bold: true },
                 { label: "LodhongKrupuk VFX", href: "/vfx", bold: false },
@@ -101,7 +101,7 @@ const { logo, alt } = getLogoAndBrand();
                   className={`
                     group relative px-4 py-3 text-lg md:text-xl leading-7 transition-all duration-300
                     ${item.bold ? "font-normal" : "font-light"}
-                    ${isActiveBrand(item.href) ? "text-yellow-400" : "text-white hover:text-yellow-400"}
+                    ${isActiveBrand(item.href) ? "text-akasacara-yellow" : "text-white hover:text-akasacara-yellow"}
                   `}
                 >
                   {item.label}
@@ -127,14 +127,14 @@ const { logo, alt } = getLogoAndBrand();
           </div>
 
           {/* Quick Links & Location */}
-          <div className="w-[805px] inline-flex justify-start items-start gap-20">
+          <div className="flex items-start gap-4xl">
             {/* QUICK LINKS - INI YANG TADI SALAH! */}
-            <div className="w-60 inline-flex flex-col justify-start items-start gap-1">
+            <div className="w-60 flex flex-col items-start gap-1">
               <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
                 Quick Links
               </div>
-              <div className="self-stretch pl-7 pr-2.5 py-2.5 flex flex-col justify-start items-start gap-2.5">
-                <div className="self-stretch flex flex-col justify-start items-start gap-1">
+              <div className="self-stretch pl-7 pr-2.5 py-2.5 flex flex-col items-start gap-2.5">
+                <div className="self-stretch flex flex-col items-start gap-1">
                   {quickLinks.map((link, index) => (
                     <div key={link.label}>
                       <div className="self-stretch text-white text-xl font-light font-['Poppins'] leading-7">
@@ -152,7 +152,7 @@ const { logo, alt } = getLogoAndBrand();
             </div>
 
             {/* Location */}
-            <div className="inline-flex flex-col justify-start items-start gap-1">
+            <div className="flex flex-col items-start gap-1">
               <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
                 Location
               </div>

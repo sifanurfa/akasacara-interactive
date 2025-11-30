@@ -4,25 +4,47 @@ import { AnnouncementFilm } from "@/types/api/types";
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace("/api", "");
 
 export const AnnouncementFilmApi = {
-  getAll: async () => {
+  getAll: async (options?: { limit?: number; sort?: "asc" | "desc" }) => {
     const res = await apiClient.get("/announcement-films?populate=media");
 
-    return res.data.data.map((item: AnnouncementFilm) => {
+    interface ArticleWithRawDate extends AnnouncementFilm {
+      image: string;
+      date: string;
+      rawDate: string;
+    }
+
+    let data: ArticleWithRawDate[] = res.data.data.map((item: AnnouncementFilm) => {
       const url = item.media?.[0]?.url || "";
       const fullUrl = url.startsWith("http")
         ? url
         : `${API_URL}${url.replace("/api/", "/")}`;
 
       const formattedDate = item.date
-      ? new Date(item.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      : "";
+        ? new Date(item.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        : "";
 
       return { ...item, image: fullUrl, date: formattedDate };
     });
+
+    // Urutkan data kalau parameter sort ada
+    if (options?.sort) {
+      data = data.sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return options.sort === "desc" ? dateB - dateA : dateA - dateB;
+      });
+    }
+
+    // Batasi jumlah data kalau parameter limit ada
+    if (options?.limit) {
+      data = data.slice(0, options.limit);
+    }
+
+    return data;
   },
   getNews: async () => {
     const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=News");
@@ -64,36 +86,56 @@ export const AnnouncementFilmApi = {
       return { ...item, image: fullUrl, date: formattedDate };
     });
   },
-  getAnnouncement: async () => {
+  getAnnouncement: async (options?: { limit?: number; sort?: "asc" | "desc" }) => {
     const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=Announcement");
 
-    return res.data.data.map((item: AnnouncementFilm) => {
+    interface ArticleWithRawDate extends AnnouncementFilm {
+      image: string;
+      date: string;
+      rawDate: string;
+    }
+
+    let data: ArticleWithRawDate[] = res.data.data.map((item: AnnouncementFilm) => {
       const url = item.media?.[0]?.url || "";
       const fullUrl = url.startsWith("http")
         ? url
         : `${API_URL}${url.replace("/api/", "/")}`;
 
       const formattedDate = item.date
-      ? new Date(item.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      : "";
+        ? new Date(item.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        : "";
 
       return { ...item, image: fullUrl, date: formattedDate };
     });
+
+    // Urutkan data kalau parameter sort ada
+    if (options?.sort) {
+      data = data.sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return options.sort === "desc" ? dateB - dateA : dateA - dateB;
+      });
+    }
+
+    // Batasi jumlah data kalau parameter limit ada
+    if (options?.limit) {
+      data = data.slice(0, options.limit);
+    }
+
+    return data;
   },
-  getArticle: async () => {
-    const res = await apiClient.get("/announcement-films?populate=media&filters[announceType]=Announcement");
+  getArticlebyId: async (documentId: string) => {
+    const res = await apiClient.get(`/announcement-films/${documentId}`);
 
-    return res.data.data.map((item: AnnouncementFilm) => {
-      const url = item.media?.[0]?.url || "";
-      const fullUrl = url.startsWith("http")
-        ? url
-        : `${API_URL}${url.replace("/api/", "/")}`;
+    const item: AnnouncementFilm = res.data.data;
+    const url = item.media?.[0]?.url || "";
+    const fullUrl = url.startsWith("http") ? url : `${API_URL}${url.replace("/api/", "/")}`;
 
-      const formattedDate = item.date
+    const formattedDate = item.date
       ? new Date(item.date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",
@@ -101,7 +143,48 @@ export const AnnouncementFilmApi = {
         })
       : "";
 
+    return { ...item, image: fullUrl, date: formattedDate };
+  },
+  getHighlight: async (options?: { limit?: number; sort?: "asc" | "desc" }) => {
+    const res = await apiClient.get("/announcement-films?populate=media&filters[highlight]=true");
+
+    interface ArticleWithRawDate extends AnnouncementFilm {
+      image: string;
+      date: string;
+      rawDate: string;
+    }
+
+    let data: ArticleWithRawDate[] = res.data.data.map((item: AnnouncementFilm) => {
+      const url = item.media?.[0]?.url || "";
+      const fullUrl = url.startsWith("http")
+        ? url
+        : `${API_URL}${url.replace("/api/", "/")}`;
+
+      const formattedDate = item.date
+        ? new Date(item.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        : "";
+
       return { ...item, image: fullUrl, date: formattedDate };
     });
+
+    // Urutkan data kalau parameter sort ada
+    if (options?.sort) {
+      data = data.sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return options.sort === "desc" ? dateB - dateA : dateA - dateB;
+      });
+    }
+
+    // Batasi jumlah data kalau parameter limit ada
+    if (options?.limit) {
+      data = data.slice(0, options.limit);
+    }
+
+    return data;
   },
 };

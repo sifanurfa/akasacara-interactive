@@ -106,7 +106,7 @@ function AkasacaraHome() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await AnnouncementFilmApi.getAll();
+        const data = await AnnouncementFilmApi.getHighlight({ limit:3, sort:"desc" });
         setPress(data);
       } catch (err) {
         console.error("Failed to fetch works:", err);
@@ -163,7 +163,7 @@ function AkasacaraHome() {
             {press.map((item) => (
                 <PressCard
                     key={item.id}
-                    id={item.id}
+                    documentId={item.documentId}
                     title={item.title}
                     announceType={item.announceType}
                     urlMedia={item.urlMedia}

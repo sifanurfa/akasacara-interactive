@@ -10,13 +10,13 @@ type ArticleCardProps = {
 
 export function ArticleCard({ id, title, date, image }: ArticleCardProps) {
   return (
-    <div className="flex flex-1 justify-center items-center gap-m cursor-pointer">
-      <div className="flex-1 relative aspect-video">
+    <div className="flex flex-1 justify-center items-center gap-m cursor-pointer group">
+      <div className="flex-1 relative aspect-video overflow-hidden">
           <Image
               src={image}
               alt={title}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
           />
       </div>
       <div className="flex-1 flex flex-col justify-center items-start gap-s">
