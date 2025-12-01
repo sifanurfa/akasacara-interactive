@@ -474,7 +474,3 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-
-.kategoriourwork {
-  @apply hover:italic hover:underline font-semibold;
-}

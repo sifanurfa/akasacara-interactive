@@ -10,9 +10,10 @@ type WorkCardProps = {
   image: string;
   description?: string | null;
   isLast?: boolean;
+  type: string | null;
 };
 
-function WorkCard({ title, year, image, description, isLast }: WorkCardProps) {
+function WorkCard({ title, year, image, description, isLast, type }: WorkCardProps) {
   return (
     <div className="group flex flex-col self-stretch gap-xl transition-transform duration-500 hover:-translate-y-2">
       <div className="flex items-center gap-xl pe-l self-stretch transition-all duration-500">
@@ -21,7 +22,7 @@ function WorkCard({ title, year, image, description, isLast }: WorkCardProps) {
             {title}
           </div>
           <div className="body-reg vfx-text-subtitle-1 hidden group-hover:block transition-opacity duration-500">
-            FEATURE FILM & VFX PRODUCTION - <span className="vfx-text-title">{year}</span>
+            {type} - <span className="vfx-text-title">{year}</span>
           </div>
         </div>
 
