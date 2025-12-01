@@ -4,9 +4,12 @@ import React from "react";
 import InteractiveDevlog from "@/components/interactive/homepage/DevlogSlider";
 import PortofolioList from "./PortofolioList";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+
 const Home = () => {
   return (
     <div className="relative bg-interactive overflow-hidden">
+      <Navbar/>
       {/* SHOWREEL */}
       <section className="showreel relative w-screen h-screen overflow-hidden">
         <img

@@ -1,15 +1,20 @@
 "use client";
 
 import React from 'react';
-import PosterShowcase from '@/components/vfx/ourwork/PosterShowcase'
+// import PosterShowcase from '@/components/vfx/ourwork/PosterShowcase'
 import ProjectList from '@/components/vfx/ourwork/ProjectList';
 import Footer from '@/components/Footer';
+import Showcase from '@/components/vfx/ourwork/Showcase';
+import Navbar from "@/components/Navbar";
 
 
 const OurWork = () => {
 
     return (
         <div className="bg-vfx">
+            {/* Navbar */}
+            <Navbar/>
+
              {/* JUDUL */}
             <div className="py-section px-container">
                 <div className="inline-flex flex-col justify-center text-center gap-md">
@@ -56,7 +61,8 @@ const OurWork = () => {
             </div>
             {/* POSTER SHOWCASE */}
             <div className="flex flex-col pb-10">
-                <PosterShowcase/>
+                {/* <PosterShowcase/> */}
+                <Showcase/>
             </div>
             {/* JUDUL */}
             <div className="flex py-section justify-center items-center self-stretch gap-2.5">

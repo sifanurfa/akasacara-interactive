@@ -6,6 +6,7 @@ import ContentCard from '@/components/vfx/showcase/ContentCard';
 import LatestBreakdown from './LatestBreakdownSection';
 import Breakdown from '@/components/vfx/showcase/Breakdown';
 import Footer from '@/components/Footer';
+import Navbar from "@/components/Navbar";
 
 const announcements = [
   {
@@ -48,39 +49,43 @@ const announcements = [
 
 function VFXShowcase() {
   return (
-    <div className="flex flex-col items-center gap-[26px] bg-vfx">
-        <div className="flex py-section px-container justify-center items-center self-stretch">
-            <div className={`flex-1 vfx-text-title text-center ${styles.tagline}`}>How is <span className={styles.cinematic}>cinematic illusion</span> crafted through <span className={styles.cinematic}>light and layers</span> ?</div>
-        </div>
+    <>
+      <div className="flex flex-col items-center gap-[26px] bg-vfx">
+      {/* Navbar */}
+      <Navbar/>
+      <div className="flex py-section px-container justify-center items-center self-stretch">
+          <div className={`flex-1 vfx-text-title text-center ${styles.tagline}`}>How is <span className={styles.cinematic}>cinematic illusion</span> crafted through <span className={styles.cinematic}>light and layers</span> ?</div>
+      </div>
 
-        {/* slider */}
-        <div className="flex pb-section justify-center items-center gap-4xl self-stretch overflow-hidden">
-            <LatestBreakdown/>
-        </div>
+      {/* slider */}
+      <div className="flex pb-section justify-center items-center gap-4xl self-stretch overflow-hidden">
+          <LatestBreakdown/>
+      </div>
 
-        <div className="flex px-container pt-section justify-between items-center self-stretch">
-            <div className="headline-1 vfx-text-title">Breakdown Series</div>
-        </div>
+      <div className="flex px-container pt-section justify-between items-center self-stretch">
+          <div className="headline-1 vfx-text-title">Breakdown Series</div>
+      </div>
 
-        {/* interactice breakdown */}
-        <Breakdown/>
+      {/* interactice breakdown */}
+      <Breakdown/>
 
-        {/* list content */}
-        <div className="flex py-section px-container flex-col items-start gap-2xl self-stretch">
-            <div className="grid grid-cols-2 gap-2xl items-start self-stretch">
-                {announcements.map((item) => (
-                    <ContentCard
-                        key={item.id}
-                        id={item.id}
-                        title={item.title}
-                        content={item.content}
-                        image={item.image}
-                    />
-                ))}
-            </div>
-        </div>
-        <Footer/>
+      {/* list content */}
+      <div className="flex py-section px-container flex-col items-start gap-2xl self-stretch">
+          <div className="grid grid-cols-2 gap-2xl items-start self-stretch">
+              {announcements.map((item) => (
+                  <ContentCard
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      content={item.content}
+                      image={item.image}
+                  />
+              ))}
+          </div>
+      </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 

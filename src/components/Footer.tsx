@@ -105,10 +105,20 @@ export default function Footer() {
   const socialLinks = getSocialLinks();
 
   const isActiveBrand = (href: string) => {
-    if (href === "/main") return pathname === "/" || pathname === "/main";
-    return pathname.startsWith(href);
-  };
+     if (
+    href === "/main" ||
+    href === "/vfx" ||
+    href === "/interactive" ||
+    href === "/inquiry"
+  ) {
+    // main punya pengecualian: "/" juga dianggap main
+    if (href === "/main") return pathname === "/main" || pathname === "/";
+    return pathname === href; // EXACT MATCH SAJA!
+  }
 
+  // untuk halaman child
+  return pathname === href || pathname.startsWith(href + "/");
+};
   return (
     <div className="bg-black flex flex-col py-section px-container items-start">
       <div className="self-stretch flex items-center">
@@ -121,16 +131,6 @@ export default function Footer() {
           />
 
           {/* Social Media Icons */}
-<<<<<<< Updated upstream
-          <div className="h-10 flex items-center gap-l">
-            {["Linkedin", "X", "Facebook", "Instagram", "Youtube"].map((social) => (
-              <img
-                key={social}
-                src={`/assets/${social}.png`}
-                alt={`${social} Logo`}
-                className="w-8 h-8 relative"
-              />
-=======
           <div className="w-96 h-10 inline-flex justify-start items-center gap-8">
             {socialLinks.map((social) => (
               <a
@@ -146,7 +146,6 @@ export default function Footer() {
                   className="w-10 h-10 relative"
                 />
               </a>
->>>>>>> Stashed changes
             ))}
           </div>
         </div>
@@ -192,29 +191,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links & Location */}
-<<<<<<< Updated upstream
-          <div className="flex items-start gap-4xl">
-            {/* QUICK LINKS - INI YANG TADI SALAH! */}
-            <div className="w-60 flex flex-col items-start gap-1">
-              <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
-                Quick Links
-              </div>
-              <div className="self-stretch pl-7 pr-2.5 py-2.5 flex flex-col items-start gap-2.5">
-                <div className="self-stretch flex flex-col items-start gap-1">
-                  {quickLinks.map((link, index) => (
-                    <div key={link.label}>
-                      <div className="self-stretch text-white text-xl font-light font-['Poppins'] leading-7">
-                        <Link href={link.href}>{link.label}</Link>
-                      </div>
-                      {index < quickLinks.length - 1 && (
-                        <div className={`w-48 h-0 outline outline-1 outline-offset-[-0.50px] ${
-                          index === 0 ? "outline-white" : "outline-white/50"
-                        }`} />
-                      )}
-                    </div>
-                  ))}
-=======
           <div className="w-[805px] inline-flex justify-start items-start gap-20">
             <div className="w-60 inline-flex flex-col justify-start items-start gap-1">
               <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
@@ -254,7 +230,6 @@ export default function Footer() {
                     </Link>
                   );
                 })}
->>>>>>> Stashed changes
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { AnnouncementFilmApi } from "@/lib/api";
 import { AnnouncementFilm } from "@/types/api/types";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const services = [
   {
@@ -117,115 +118,121 @@ function AkasacaraHome() {
   }, []);
 
   return (
-    <div className='flex flex-col items-start bg-akasacara'>
-        {/* showreel */}
-        <div className={`flex flex-col pb-section items-start self-stretch aspect-video`}>
-            <video 
-            src="/assets/video_vfx.mp4" 
-            autoPlay 
-            loop 
-            muted
-            playsInline 
-            className="absolute top-0 left-0 w-full h-full object-cover"
-            />
-        </div>
-
-        {/* services */}
-        <div className="flex flex-col py-section px-container justify-center items-start gap-section self-stretch">
-            <div className="flex flex-col items-start self-stretch">
-                <div className="sub-heading-reg vfx-text-title text-center self-stretch">WHAT WE DO !</div>
-                <div className="headline-1 text-center self-stretch text-akasacara-yellow">Crafting Visual Journeys</div>
-            </div>
-
-            <div className="flex flex-col items-start gap-l self-stretch">
-                {services.map((item, index) => (
-                  <ServiceCard
-                    key={item.category}
-                    category={item.category}
-                    image={item.image}
-                    caption={item.caption}
-                    details={item.details}
-                    isLast={index === services.length - 1}
-                  />
-                ))}                
-            </div>
-        </div>
-
-        {/* announcement */}
-        <div className="flex py-section px-container flex-col items-start gap-3xl self-stretch bg-akasacara-yellow">
-          <div className="flex items-end justify-between self-stretch">
-            <div className="headline-1 aka-text-title self-stretch">OUR <span className="italic">PRESS</span></div>
-            <Link href="/main/announcement" className="flex justify-end items-center gap-m aka-text-title">
-              <span className="button-main">SEE ALL</span>
-              <span className="see-all">&gt;</span>
-            </Link>            
+    <>
+        <div className='flex flex-col items-start bg-akasacara'>
+          {/* Navbar */}
+          <div>
+            <Navbar/>
           </div>
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center items-start gap-6 self-stretch">
-            {press.map((item) => (
-                <PressCard
-                    key={item.id}
-                    documentId={item.documentId}
-                    title={item.title}
-                    announceType={item.announceType}
-                    urlMedia={item.urlMedia}
-                    image={`${baseURL?.replace(
-                      "/api",
-                      ""
-                    )}${item.media?.[0]?.url.replace("/api/", "/")}`}
-                    date={item.date}
-                />
-            ))}
-          </div>
-        </div>
-
-        {/* portofolio list */}
-        <div className="flex flex-col p-container justify-center items-start gap-section self-stretch">
-          <div className="flex items-end justify-between self-stretch">
-            <div className="headline-1 text-akasacara-yellow">OUR <span className="italic">WORKS</span></div>
-            <div className="flex justify-end items-center gap-m text-akasacara-yellow">
-              <span className="button-main">SEE ALL</span>
-              <span className="see-all">&gt;</span>
-            </div>
-          </div>
-          
-          <div className="flex flex-col items-start gap-xl self-stretch">
-            {works.map((item, index) => (
-              <WorkCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                detail={item.detail}
-                year={item.year}
-                image={item.image}
-                caption={item.caption}
-                isLast={index === works.length - 1}
+          {/* showreel */}
+          <div className={`flex flex-col pb-section items-start self-stretch aspect-video`}>
+              <video 
+              src="/assets/video_vfx.mp4" 
+              autoPlay 
+              loop 
+              muted
+              playsInline 
+              className="absolute top-0 left-0 w-full h-full object-cover"
               />
-            ))}
           </div>
-        </div>
 
-        {/* about */}
-        <div className="flex flex-col py-section px-container items-start self-stretch group hover:bg-akasacara-yellow transition-all duration-500">
-          <div className="flex flex-col items-start gap-xl self-stretch">
-            <div className="headline-1 text-akasacara-yellow self-stretch group-hover:text-black">ABOUT  US !</div>
-            <div className="items-center self-stretch grid grid-cols-1 lg:grid-cols-2 gap-xl">
-              <div className="flex-1 relative aspect-4/3 overflow-hidden">
-                <Image
-                    src="/assets/film/about.png"
-                    alt="Portfolio Image"
-                    fill
-                    className="object-cover"
-                />
+          {/* services */}
+          <div className="flex flex-col py-section px-container justify-center items-start gap-section self-stretch">
+              <div className="flex flex-col items-start self-stretch">
+                  <div className="sub-heading-reg vfx-text-title text-center self-stretch">WHAT WE DO !</div>
+                  <div className="headline-1 text-center self-stretch text-akasacara-yellow">Crafting Visual Journeys</div>
               </div>
-              <div className="about-caption flex flex-col flex-1 justify-center items-center gap-l sub-heading-reg vfx-text-subtitle-1 text-justify">
-                <p>Akasacara Film is a small independent multimedia company based in Yogyakarta, Indonesia. Akasacara Film has a role to provide creative innovation in multimedia.</p>
-                <p>Akasacara Film produced a film and distributed it to film festivals and cinemas. The creations which have been produced by Akasacara Film include narrative films, </p>
+
+              <div className="flex flex-col items-start gap-l self-stretch">
+                  {services.map((item, index) => (
+                    <ServiceCard
+                      key={item.category}
+                      category={item.category}
+                      image={item.image}
+                      caption={item.caption}
+                      details={item.details}
+                      isLast={index === services.length - 1}
+                    />
+                  ))}                
+              </div>
+          </div>
+
+          {/* announcement */}
+          <div className="flex py-section px-container flex-col items-start gap-3xl self-stretch bg-akasacara-yellow">
+            <div className="flex items-end justify-between self-stretch">
+              <div className="headline-1 aka-text-title self-stretch">OUR <span className="italic">PRESS</span></div>
+              <Link href="/main/announcement" className="flex justify-end items-center gap-m aka-text-title">
+                <span className="button-main">SEE ALL</span>
+                <span className="see-all">&gt;</span>
+              </Link>            
+            </div>
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center items-start gap-6 self-stretch">
+              {press.map((item) => (
+                  <PressCard
+                      key={item.id}
+                      documentId={item.documentId}
+                      title={item.title}
+                      announceType={item.announceType}
+                      urlMedia={item.urlMedia}
+                      image={`${baseURL?.replace(
+                        "/api",
+                        ""
+                      )}${item.media?.[0]?.url.replace("/api/", "/")}`}
+                      date={item.date}
+                  />
+              ))}
+            </div>
+          </div>
+
+          {/* portofolio list */}
+          <div className="flex flex-col p-container justify-center items-start gap-section self-stretch">
+            <div className="flex items-end justify-between self-stretch">
+              <div className="headline-1 text-akasacara-yellow">OUR <span className="italic">WORKS</span></div>
+              <div className="flex justify-end items-center gap-m text-akasacara-yellow">
+                <span className="button-main">SEE ALL</span>
+                <span className="see-all">&gt;</span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col items-start gap-xl self-stretch">
+              {works.map((item, index) => (
+                <WorkCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  detail={item.detail}
+                  year={item.year}
+                  image={item.image}
+                  caption={item.caption}
+                  isLast={index === works.length - 1}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* about */}
+          <div className="flex flex-col py-section px-container items-start self-stretch group hover:bg-akasacara-yellow transition-all duration-500">
+            <div className="flex flex-col items-start gap-xl self-stretch">
+              <div className="headline-1 text-akasacara-yellow self-stretch group-hover:text-black">ABOUT  US !</div>
+              <div className="items-center self-stretch grid grid-cols-1 lg:grid-cols-2 gap-xl">
+                <div className="flex-1 relative aspect-4/3 overflow-hidden">
+                  <Image
+                      src="/assets/film/about.png"
+                      alt="Portfolio Image"
+                      fill
+                      className="object-cover"
+                  />
+                </div>
+                <div className="about-caption flex flex-col flex-1 justify-center items-center gap-l sub-heading-reg vfx-text-subtitle-1 text-justify">
+                  <p>Akasacara Film is a small independent multimedia company based in Yogyakarta, Indonesia. Akasacara Film has a role to provide creative innovation in multimedia.</p>
+                  <p>Akasacara Film produced a film and distributed it to film festivals and cinemas. The creations which have been produced by Akasacara Film include narrative films, </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <Footer/>
-    </div>
+      </div>
+      <Footer/>
+    </>
   )
 }
 
