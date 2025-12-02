@@ -29,7 +29,7 @@ const Home = () => {
 
       {/* PORTOFOLIO LIST */}
       <div className="w-full px-container py-section flex flex-col justify-center items-center gap-3xl">
-        <div className="self-stretch px-24 flex flex-col items-center gap-4">
+        <div className="self-stretch flex flex-col items-center gap-4">
           <div className="self-stretch flex justify-center items-center gap-m">
             <div className="text-center vfx-text-title headline-1">
               Discover Our Works

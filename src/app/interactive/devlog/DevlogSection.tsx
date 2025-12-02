@@ -125,6 +125,7 @@ export default function DevlogSection() {
               title={item.title}
               image={item.image}
               date={item.date}
+              announceType={item.announceType}
               urlMedia={item.urlMedia}
             />
           ))}
