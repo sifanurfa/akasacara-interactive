@@ -6,24 +6,24 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "akasacara-be.duckdns.org",
+        hostname: "admin.akasacara.web.id",
         port: "",
         pathname: "/api/uploads/**",
       },
       {
         protocol: "https",
-        hostname: "akasacara-be.duckdns.org",
+        hostname: "admin.akasacara.web.id",
         pathname: "/api/uploads/**",
       },
       {
         protocol: "http",
-        hostname: "akasacara-be.duckdns.org",
+        hostname: "admin.akasacara.web.id",
         port: "",
         pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "akasacara-be.duckdns.org",
+        hostname: "admin.akasacara.web.id",
         port: "",
         pathname: "/**",
       },
