@@ -43,7 +43,7 @@ const Home = () => {
             Your browser does not support the video tag.
           </video>
           <div className="absolute top-6 left-6 z-10">
-            <Image
+            <img
               src="/assets/LogoInteractive.png"
               alt="Akasacara Film Logo"
               className="w-64 h-15"
@@ -75,7 +75,7 @@ const Home = () => {
           <div className="headline-1 vfx-text-title">LATEST DEVLOG</div>
 
           <div className="px-m py-s outline-[3px] outline-offset-[-3px] outline-white flex justify-center items-center cursor-pointer">
-            <Link href="/devlog" className="button-main vfx-text-title">
+            <Link href="/interactive/devlog" className="button-main vfx-text-title">
               See All
             </Link>
           </div>

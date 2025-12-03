@@ -125,7 +125,7 @@ export default function Footer() {
       <div className="self-stretch flex items-center">
         <div className="flex flex-2 flex-col items-start gap-2xl">
           {/* Logo */}
-          <Image
+          <img
             src={logo}
             alt={alt}
             className="w-96 h-24 relative"
@@ -141,7 +141,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="transition-transform duration-300 hover:scale-110"
               >
-                <Image
+                <img
                   src={social.icon}
                   alt={`${social.platform} Logo`}
                   className="w-10 h-10 relative"
