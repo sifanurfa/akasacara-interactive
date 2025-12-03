@@ -20,7 +20,7 @@ export default function Footer() {
     if (pathname.startsWith("/interactive")) {
       return [
         { label: "Home", href: "/interactive" },
-        { label: "Newsroom", href: "/interactive/seeall" },
+        { label: "Newsroom", href: "/interactive/devlog" },
         { label: "Our Works", href: "/interactive/collection" },
       ];
     }
@@ -106,33 +106,48 @@ export default function Footer() {
   const socialLinks = getSocialLinks();
 
   const isActiveBrand = (href: string) => {
-     if (
-    href === "/main" ||
-    href === "/vfx" ||
-    href === "/interactive" ||
-    href === "/inquiry"
-  ) {
-    // main punya pengecualian: "/" juga dianggap main
-    if (href === "/main") return pathname === "/main" || pathname === "/";
-    return pathname === href; // EXACT MATCH SAJA!
-  }
+    if (
+      href === "/main" ||
+      href === "/vfx" ||
+      href === "/interactive" ||
+      href === "/inquiry"
+    ) {
+      // main punya pengecualian: "/" juga dianggap main
+      if (href === "/main") return pathname === "/main" || pathname === "/";
+      return pathname === href; // EXACT MATCH SAJA!
+    }
 
-  // untuk halaman child
-  return pathname === href || pathname.startsWith(href + "/");
-};
+    // untuk halaman child
+    return pathname === href || pathname.startsWith(href + "/");
+  };
+
+  const isActiveQuickLink = (link: { label: string; href: string }) => {
+    if (link.label === "Home") {
+      if (link.href === "/main") {
+        return pathname === "/" || pathname === "/main";
+      } else {
+        return pathname === link.href;
+      }
+    } else {
+      return pathname === link.href || pathname.startsWith(link.href + "/");
+    }
+  };
+
   return (
     <div className="bg-black flex flex-col py-section px-container items-start">
-      <div className="self-stretch flex items-center">
-        <div className="flex flex-2 flex-col items-start gap-2xl">
+      <div className="self-stretch flex md:flex-row flex-col items-start">
+        <div className="flex md:flex-[2] flex-col items-start gap-2xl w-full md:w-auto">
           {/* Logo */}
-          <img
-            src={logo}
-            alt={alt}
-            className="w-96 h-24 relative"
-          />
+          <div className="relative w-full max-w-52 sm:max-w-64 md:max-w-72 h-auto">
+            <img
+              src={logo}
+              alt={alt}
+              className="object-contain w-full h-auto"
+            />
+          </div>
 
           {/* Social Media Icons */}
-          <div className="w-96 h-10 inline-flex justify-start items-center gap-8">
+          <div className="flex justify-start items-center gap-4 md:gap-8">
             {socialLinks.map((social) => (
               <a
                 key={social.platform}
@@ -144,17 +159,17 @@ export default function Footer() {
                 <img
                   src={social.icon}
                   alt={`${social.platform} Logo`}
-                  className="w-10 h-10 relative"
+                  className="w-8 h-8 md:w-10 md:h-10 relative"
                 />
               </a>
             ))}
           </div>
         </div>
 
-        <div className="flex-5 flex flex-col justify-center items-end gap-2xl">
+        <div className="flex md:flex-[5] flex-col justify-center md:items-end items-start gap-2xl w-full md:w-auto mt-8 md:mt-0">
           {/* Brand Navigation */}
-          <div className="self-stretch flex flex-col justify-center items-end">
-            <div className="flex items-center lg:justify-end gap-x-8 gap-y-6 text-white">
+          <div className="self-stretch flex flex-col justify-center md:items-end items-start">
+            <div className="flex flex-wrap items-center md:justify-end justify-start gap-x-4 md:gap-x-8 gap-y-4 md:gap-y-6 text-white">
               {[
                 { label: "Akasacara Film", href: "/main", bold: true },
                 { label: "LodhongKrupuk VFX", href: "/vfx", bold: false },
@@ -165,7 +180,7 @@ export default function Footer() {
                   key={item.label}
                   href={item.href}
                   className={`
-                    group relative px-4 py-3 text-lg md:text-xl leading-7 transition-all duration-300
+                    group relative px-2 md:px-4 py-2 md:py-3 text-base md:text-lg lg:text-xl leading-7 transition-all duration-300
                     ${item.bold ? "font-normal" : "font-light"}
                     ${isActiveBrand(item.href) ? "text-akasacara-yellow" : "text-white hover:text-akasacara-yellow"}
                   `}
@@ -192,56 +207,53 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="w-[805px] inline-flex justify-start items-start gap-20">
-            <div className="w-60 inline-flex flex-col justify-start items-start gap-1">
-              <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
+          <div className="w-full flex flex-col md:flex-row justify-end items-start gap-10 md:gap-20  md:pl-[48px] lg:pl-[120px]">
+            {/* Quick Links */}
+            <div className="flex-1 inline-flex flex-col justify-start items-start gap-1 w-full md:min-w-[15rem] md:max-w-[50%]">
+              <div className="self-stretch text-white text-lg md:text-xl font-medium font-['Poppins'] leading-7">
                 Quick Links
               </div>
-              <div className="self-stretch pl-7 pr-2.5 py-2.5 flex flex-col justify-start items-start gap-2.5">
+              <div className="self-stretch pl-0 md:pl-0 pr-1 md:pr-2.5 py-2.5 flex flex-col justify-start items-start gap-2.5">
                 <div className="self-stretch flex flex-col justify-start items-start gap-1">
                   {quickLinks.map((link) => {
-                  // Fix logika aktif — pastikan hanya 1 yang benar-benar aktif
-                  const isActive =
-                    link.href === "/main"
-                      ? pathname === "/" || pathname === "/main"
-                      : pathname === link.href || pathname.startsWith(link.href + "/");
+                    const isActive = isActiveQuickLink(link);
 
-                  return (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      className={`
-                        relative text-xl font-light leading-7 transition-all duration-300
-                        ${isActive ? "text-yellow-400" : "text-white"}
-                      `}
-                    >
-                      {link.label}
-
-                      {/* Garis panjang abu-abu permanen */}
-                      <span className="absolute -bottom-1 left-0 right-0 h-px bg-white/30" />
-
-                      {/* Garis putih yang muncul saat hover atau aktif */}
-                      <span
+                    return (
+                      <Link
+                        key={link.label}
+                        href={link.href}
                         className={`
-                          absolute -bottom-1 left-0 h-px bg-white origin-left
-                          transition-transform duration-400
-                          ${isActive ? "w-full" : "w-0 group-hover:w-full"}
+                          group relative text-lg md:text-xl font-light leading-7 transition-all duration-300
+                          ${isActive ? "text-yellow-400" : "text-white"}
                         `}
-                      />
-                    </Link>
-                  );
-                })}
+                      >
+                        {link.label}
+
+                        {/* Garis panjang abu-abu permanen */}
+                        <span className="absolute -bottom-1 left-0 right-0 h-px bg-white/30" />
+
+                        {/* Garis putih yang muncul saat hover atau aktif */}
+                        <span
+                          className={`
+                            absolute -bottom-1 left-0 h-px bg-white origin-left
+                            transition-transform duration-400
+                            ${isActive ? "w-full" : "w-0 group-hover:w-full"}
+                          `}
+                        />
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
             {/* Location */}
-            <div className="flex flex-col items-start gap-1">
-              <div className="self-stretch text-white text-xl font-medium font-['Poppins'] leading-7">
+            <div className="flex-1 flex flex-col items-start gap-1 min-w-[15rem] md:max-w-[50%]">
+              <div className="self-stretch text-white text-lg md:text-xl font-medium font-['Poppins'] leading-7">
                 Location
               </div>
-              <div className="pl-7 pr-2.5 py-2.5">
-                <div className="w-96 text-white text-xl font-light font-['Poppins'] leading-7">
+              <div className=" pr-1 md:pr-2.5 py-2.5">
+                <div className="text-white text-lg md:text-xl font-light font-['Poppins'] leading-7">
                   Jalan Patuk Ngoro Oro, KM 0.4, No. 207, Patuk, Patuk, Gunungkidul, D.I. Yogyakarta 55862
                 </div>
               </div>

@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   const { menu, logoSrc, logoAlt, currentSection } = useMemo(() => {
     const normalizedPath = pathname === "/" ? "/main" : pathname;
@@ -75,22 +78,53 @@ export default function Navbar() {
     { name: "LodhongKrupuk Interactive", href: "/interactive", section: "interactive" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (isDropdownOpen) {
+        // Jika dropdown terbuka, jangan sembunyikan navbar
+        setIsNavbarVisible(true);
+      } else {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+          // Scroll ke bawah & sudah lewat 100px
+          setIsNavbarVisible(false);
+        } else if (currentScrollY < lastScrollY.current) {
+          // Scroll ke atas
+          setIsNavbarVisible(true);
+        }
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isDropdownOpen]);
+
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 px-8 pt-8">
+      <nav
+        className={`
+          fixed top-0 left-0 right-0 z-50 px-6 py-1 md:px-8 md:py-2 
+          bg-black/20 backdrop-blur-sm border-b border-white/10
+          transition-transform duration-500 ease-out
+          ${isNavbarVisible ? "translate-y-0" : "-translate-y-full"}
+        `}
+      >
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <img src={logoSrc} alt={logoAlt} className="h-14 w-auto object-contain" />
+            <img src={logoSrc} alt={logoAlt} className="h-10 md:h-14 w-auto object-contain" />
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-34">
+          <div className="flex items-center gap-5 md:gap-20 lg:gap-34">
             {menu.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative text-xl font-medium text-stone-300 transition-all duration-300 hover:text-white"
+                className="relative text-s md:text-l lg:text-xl  font-medium text-stone-300 transition-all duration-300 hover:text-white"
               >
                 <span className={isActive(link.href) ? "text-white" : ""}>
                   {link.label}
@@ -129,7 +163,8 @@ export default function Navbar() {
         </div>
 
         {/* Dropdown Panel - Muncul di semua ukuran layar */}
-        <div className={`fixed right-8 w-100 transition-all duration-500 ease-out overflow-hidden  ${
+        <div className={`fixed top-2 md:top-14 lg:top-14 right-1 md:right-2 left-auto
+        transition-all duration-500 ease-out origin-top-right  ${
           isDropdownOpen 
             ? "top-24 opacity-100" 
             : "top-0 opacity-0 pointer-events-none"
