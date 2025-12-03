@@ -2,56 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();
-  const hostname = req.headers.get("host") || "";
+  // const url = req.nextUrl.clone();
+  // const hostname = req.headers.get("host") || "";
 
-  // Tentukan host saat lokal atau production
-  const currentHost =
-    process.env.NODE_ENV === "production"
-      ? hostname.replace(".akasacara.web.id", "")
-      : hostname.replace(".localhost:3000", "").replace(".localhost", "");
+  // // Tentukan host saat lokal atau production
+  // const currentHost =
+  //   process.env.NODE_ENV === "production"
+  //     ? hostname.replace(".akasacara.web.id", "")
+  //     : hostname.replace(".localhost:3000", "").replace(".localhost", "");
 
-  // kalau masih pakai vercel domain
-  if (hostname.includes("akasacara.vercel.app")) {
-    const sub = req.nextUrl.searchParams.get("domain");
-    switch (sub) {
-      case "vfx":
-        url.pathname = `/vfx${url.pathname}`;
-        break;
-      case "interactive":
-        url.pathname = `/interactive${url.pathname}`;
-        break;
-      case "film":
-        url.pathname = `/main${url.pathname}`;
-        break;
-      default:
-        url.pathname = `/akasacara${url.pathname}`;
-        break;
-    }
-  }
-
-  // Tentukan domain mana
-  switch (currentHost) {
-    case "vfx":
-      url.pathname = `/vfx${url.pathname}`;
-      break;
-    case "interactive":
-      url.pathname = `/interactive${url.pathname}`;
-      break;
-    case "film":
-      url.pathname = `/main${url.pathname}`;
-      break;
-    case "":
-    case "www":
-      url.pathname = `/akasacara`;
-      break;
-    default:
-      // kalau domain tidak dikenali
-      url.pathname = `/akasacara`;
-      break;
-  }
-
-  return NextResponse.rewrite(url);
+  // return NextResponse.rewrite(url);
+  return NextResponse.next();
 }
 
 export const config = {
