@@ -64,16 +64,16 @@ export default function Navbar() {
 
   const isActive = (href: string) => {
     if (
-      href === "/main" ||
+      href === "/film" ||
       href === "/vfx" ||
       href === "/interactive") {
-      return pathname === href || (href === "/main" && pathname === "/");
+      return pathname === href || (href === "/film" && pathname === "/");
     }
     return pathname === href || pathname.startsWith(href + "/");
   };
 
   const sectionLinks = [
-    { name: "Akasacara Film", href: "/main", section: "main" },
+    { name: "Akasacara Film", href: "/film", section: "main" },
     { name: "LodhongKrupuk VFX", href: "/vfx", section: "vfx" },
     { name: "LodhongKrupuk Interactive", href: "/interactive", section: "interactive" },
   ];
