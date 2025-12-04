@@ -37,13 +37,21 @@ const Home = () => {
           <video
             autoPlay
             loop
+            muted
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover">
+              <source src="/assets/InteractiveVideo.webm"type="video/webm" />
+          </video>
+          {/* <video
+            autoPlay
+            loop
             // muted
             playsInline
             className="absolute top-0 left-0 w-full h-full object-cover"
           >
             <source src={showreel} type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
           <div className="absolute top-6 left-6 z-10">
             <img
               src="/assets/LogoInteractive.png"
