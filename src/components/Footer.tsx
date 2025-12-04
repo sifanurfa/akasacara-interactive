@@ -33,9 +33,9 @@ export default function Footer() {
 
     // Default: Akasacara Film (main)
     return [
-      { label: "Home", href: "/main" },
-      { label: "Newsroom", href: "/main/announcement" },
-      { label: "Our Works", href: "/main/ourworks" },
+      { label: "Home", href: "/interactive" },
+      { label: "Newsroom", href: "/interactive/devlog" },
+      { label: "Our Works", href: "/interactive/collection" },
     ];
   };
   const quickLinks = getQuickLinks();

@@ -52,13 +52,13 @@ export default function Navbar() {
 
     return {
       menu: [
-        { label: "Home", href: "/main" },
-        { label: "Newsroom", href: "/main/announcement" },
-        { label: "Our Works", href: "/main/ourworks" },
-      ],
-      logoSrc: "/assets/LogoAkasacaraV2.png",
-      logoAlt: "Akasacara Film Logo",
-      currentSection: "main" as const,
+          { label: "Home", href: "/interactive" },
+          { label: "Newsroom", href: "/interactive/devlog" },
+          { label: "Our Works", href: "/interactive/collection" },
+        ],
+        logoSrc: "/assets/LogoInteractive.png",
+        logoAlt: "LodhongKrupuk Interactive Logo",
+        currentSection: "interactive" as const,
     };
   }, [pathname]);
 
