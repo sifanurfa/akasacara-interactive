@@ -8,6 +8,8 @@ import Navbar from '@/components/Navbar';
 
 const Devlog = () => {
     return (
+        <>
+        <Navbar />
         <div className="relative bg-black px-container flex flex-col justify-start items-start gap-[23px] overflow-hidden">
             {/* Navbar */}
             <Navbar/>
@@ -16,6 +18,8 @@ const Devlog = () => {
             <DevlogSection/>
             <Footer/>
         </div>
+        <Footer/>
+        </>
     );
 };
 

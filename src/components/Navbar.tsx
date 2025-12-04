@@ -52,30 +52,30 @@ export default function Navbar() {
 
     return {
       menu: [
-        { label: "Home", href: "/main" },
-        { label: "Newsroom", href: "/main/announcement" },
-        { label: "Our Works", href: "/main/ourworks" },
-      ],
-      logoSrc: "/assets/LogoAkasacaraV2.png",
-      logoAlt: "Akasacara Film Logo",
-      currentSection: "main" as const,
+          { label: "Home", href: "/interactive" },
+          { label: "Newsroom", href: "/interactive/devlog" },
+          { label: "Our Works", href: "/interactive/collection" },
+        ],
+        logoSrc: "/assets/LogoInteractive.png",
+        logoAlt: "LodhongKrupuk Interactive Logo",
+        currentSection: "interactive" as const,
     };
   }, [pathname]);
 
   const isActive = (href: string) => {
     if (
-      href === "/main" ||
-      href === "/vfx" ||
-      href === "/interactive") {
-      return pathname === href || (href === "/main" && pathname === "/");
+      href === "https://film.akasacara.web.id/" ||
+      href === "https://vfx.akasacara.web.id/" ||
+      href === "https://interactive.akasacara.web.id/") {
+      return pathname === href || (href === "https://film.akasacara.web.id/" && pathname === "/");
     }
     return pathname === href || pathname.startsWith(href + "/");
   };
 
   const sectionLinks = [
-    { name: "Akasacara Film", href: "/main", section: "main" },
-    { name: "LodhongKrupuk VFX", href: "/vfx", section: "vfx" },
-    { name: "LodhongKrupuk Interactive", href: "/interactive", section: "interactive" },
+    { name: "Akasacara Film", href: "https://film.akasacara.web.id/", section: "main" },
+    { name: "LodhongKrupuk VFX", href: "https://vfx.akasacara.web.id/", section: "vfx" },
+    { name: "LodhongKrupuk Interactive", href: "https://interactive.akasacara.web.id/", section: "interactive" },
   ];
 
   useEffect(() => {

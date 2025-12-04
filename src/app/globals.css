@@ -25,16 +25,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 } */
 
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 :root {
-  --vfx-bg: #0D0D0D;
+  --vfx-bg: #0d0d0d;
   --akasacara-bg: #000;
   --interactive-bg: #252525;
   --Hyperlink-txt: #000;
-  --akasacara-yellow: #F4BB26;
-  
+  --akasacara-yellow: #f4bb26;
+
   --fontweight-headline-1: 800;
   --fontweight-headline-2: 600;
   --fontweight-headline-3: 600;
@@ -193,34 +193,34 @@ body {
     --container-spacing-2xl: 40px;
     --container-spacing-3xl: 56px;
     --container-spacing-4xl: 64px;
-    --text-title: 40px;
-    --text-headline-1: 28px;
-    --text-headline-2: 24px;
-    --text-headline-3: 20px;
-    --text-subheading: 16px;
-    --text-body: 12px;
+    --text-title: 36px;
+    --text-headline-1: 24px;
+    --text-headline-2: 20px;
+    --text-headline-3: 16px;
+    --text-subheading: 12px;
+    --text-body: 10px;
     --text-caption: 8px;
-    --text-button-main: 16px;
-    --text-button-sec: 12px;
-    --text-filter: 16px;
-    --text-navigation: 8px;
-    --text-lineheight-title: 60px;
-    --text-lineheight-headline-1: 36px;
-    --text-lineheight-headline-2: 32px;
-    --text-lineheight-headline-3: 28px;
-    --text-lineheight-subheading: 24px;
-    --text-lineheight-body: 20px;
-    --text-lineheight-caption: 16px;
-    --text-lineheight-button-main: 24px;
-    --text-lineheight-button-sec: 20px;
-    --text-lineheight-filter: 24px;
+    --text-button-main: 12px;
+    --text-button-sec: 8px;
+    --text-filter: 12px;
+    --text-navigation: 4px;
+    --text-lineheight-title: 54px;
+    --text-lineheight-headline-1: 32px;
+    --text-lineheight-headline-2: 28px;
+    --text-lineheight-headline-3: 24px;
+    --text-lineheight-subheading: 20px;
+    --text-lineheight-body: 16px;
+    --text-lineheight-caption: 12px;
+    --text-lineheight-button-main: 20px;
+    --text-lineheight-button-sec: 16px;
+    --text-lineheight-filter: 20px;
   }
 }
 
 /* -------------------- Mobile -------------------- */
-@media (max-width: 390px) {
+@media (max-width: 350px) {
   :root {
-    --breakpoint: 390px;
+    --breakpoint: 350px;
     --columns: 4px;
     --margin: 16px;
     --gutter: 16px;
@@ -247,8 +247,8 @@ body {
     --container-spacing-4xl: 40px;
     --text-title: 20px;
     --text-headline-1: 16px;
-    --text-headline-2: 12px;
-    --text-headline-3: 10px;
+    --text-headline-2: 14px;
+    --text-headline-3: 12px;
     --text-subheading: 8px;
     --text-body: 6px;
     --text-caption: 4px;
@@ -259,7 +259,7 @@ body {
     --text-lineheight-title: 28px;
     --text-lineheight-headline-1: 24px;
     --text-lineheight-headline-2: 20px;
-    --text-lineheight-headline-3: 16px;
+    --text-lineheight-headline-3: 18px;
     --text-lineheight-subheading: 14px;
     --text-lineheight-body: 12px;
     --text-lineheight-caption: 10px;
@@ -416,37 +416,37 @@ body {
   font-family: var(--font-poppins);
   font-size: var(--text-body);
   font-style: normal;
-  font-weight: "500";
+  font-weight: '500';
   line-height: var(--text-lineheight-body);
 }
 .watch-here {
   font-family: var(--font-jet-brains-mono);
   font-size: var(--container-spacing-md);
   font-style: normal;
-  font-weight: "700";
+  font-weight: '700';
   line-height: 120%;
 }
 .see-all {
   font-family: var(--font-jet-brains-mono);
   font-size: var(--text-button-main);
   font-style: normal;
-  font-weight: "800";
+  font-weight: '800';
   line-height: var(--text-lineheight-button-main);
 }
 
 /* -------------------- Colors -------------------- */
 .aka-text-subtitle-1 {
-  color: #000; 
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #000;
-  background-clip: text;  
+  color: #000;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), #000;
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
 .aka-text-subtitle-2 {
-  color: #000; 
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.30) 100%), #000;
-  background-clip: text;  
+  color: #000;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%), #000;
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
@@ -455,21 +455,21 @@ body {
   color: #000;
 }
 .vfx-text-subtitle-1 {
-  color: #CCC;
+  color: #ccc;
 }
 .vfx-text-subtitle-2 {
-  color: #B3B3B3;
+  color: #b3b3b3;
 }
 .vfx-text-title {
-  color: #FFF;
+  color: #fff;
 }
 .hyperlink-txt {
   color: #000;
 }
 .non-act-hyperlink {
-  color: #000; 
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #000;
-  background-clip: text;  
+  color: #000;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), #000;
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
