@@ -18,7 +18,6 @@ const PortofolioList: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await InteractiveGameApi.getPortofolioList();
-        console.log("result:", data);
         setPortofolios(data);
       } catch (err) {
         console.error("Failed to fetch works:", err);
@@ -31,7 +30,7 @@ const PortofolioList: React.FC = () => {
     dots: true,
     infinite: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     speed: 800,
     slidesToShow: 1,
@@ -70,22 +69,21 @@ const PortofolioList: React.FC = () => {
           <div key={item.id} className="relative">
             {/* Background */}
             <div
-              className="w-full h-[70vh] min-h-[600px] bg-cover bg-center relative flex flex-col justify-center items-center"
+              className="w-full h-[70vh] min-h-[600px] bg-cover bg-center relative flex flex-col justify-center items-center self-stretch"
               style={{
                 backgroundImage: `url(${item.backgroundMediaImage})`,
               }}
             >
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/50 z-0"></div>
+              <div className="absolute inset-0 bg-black/60 z-0"></div>
 
               {/* Content */}
-              <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col justify-center items-center gap-4 z-10">
-                <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16">
+              <div className="w-full px-xl lg:px-3xl py-3xl flex flex-col justify-center items-center gap-4 z-10 self-stretch">
+                <div className="w-full flex-col grid grid-cols-1 xl:grid-cols-2 justify-center gap-8 lg:gap-16 self-stretch">
                   
                   {/* Left Content */}
-                  <div className="flex-1 flex flex-col justify-start items-start gap-8 lg:gap-12">
-                    <div className="w-full flex flex-col justify-center items-start gap-4">
-                      
+                  <div className="flex-2 flex flex-col xl:justify-center justify-between self-stretch items-start">
+                    <div className="w-full flex flex-col justify-center items-start gap-4">                      
                       <div className="vfx-text-title body-reg">
                         {item.progres}
                       </div>
@@ -153,7 +151,7 @@ const PortofolioList: React.FC = () => {
                       </div>
 
                       {/* Buttons */}
-                      <div className="flex flex-col sm:flex-row justify-start items-start sm:items-center gap-3 sm:gap-4">
+                      <div className="flex flex-col lg:flex-row justify-start items-start sm:items-center gap-3 sm:gap-4">
                         <WishlistNowBtn link={item.link} />
                         <WatchTrailerBtn trailerUrl={item.trailer} setTrailerUrl={setTrailerUrl} />
                       </div>
@@ -161,31 +159,37 @@ const PortofolioList: React.FC = () => {
                   </div>
                   
                   {/* Right Side Images */}
-                  <div className="flex-1 flex flex-col justify-center items-center lg:items-end gap-3 mt-8 lg:mt-0">                    
-                    <div className="relative w-full overflow-hidden aspect-video max-w-xs lg:max-w-none lg:w-80 shadow-lg">
-                      <Image
-                          src={item.gameplayMediaImage || "/assets/ss01.png"}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-all duration-500 hover:scale-110"
-                        />
-                    </div>
-                    <div className="relative w-full overflow-hidden aspect-video max-w-xs lg:max-w-none lg:w-80 shadow-lg">
-                      <Image
-                          src={item.backgroundGameImage || "/assets/ss01.png"}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-all duration-500 hover:scale-110"
-                        />
-                    </div>
-                    <div className="relative w-full overflow-hidden aspect-video max-w-xs lg:max-w-none lg:w-80 shadow-lg">
-                      <Image
-                          src={item.homepageGameImage || "/assets/ss01.png"}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-all duration-500 hover:scale-110"
-                        />
-                    </div>
+                  <div className="flex-1 flex flex-row xl:flex-col justify-center items-center lg:items-end gap-3 mt-8 lg:mt-0">                    
+                    {item.gameplayMediaImage && (
+                      <div className="relative w-full min-h-xl overflow-hidden aspect-video  lg:w-80 shadow-lg">
+                        <Image
+                            src={item.gameplayMediaImage || "/assets/ss01.png"}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-all duration-500 hover:scale-110"
+                          />
+                      </div>                      
+                    )}
+                    {item.backgroundGameImage && (
+                      <div className="relative w-full min-h-xl overflow-hidden aspect-video  lg:w-80 shadow-lg">
+                        <Image
+                            src={item.backgroundGameImage || "/assets/ss01.png"}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-all duration-500 hover:scale-110"
+                          />
+                      </div>
+                    )}
+                    {item.homepageGameImage && (
+                      <div className="relative w-full min-h-xl overflow-hidden aspect-video  lg:w-80 shadow-lg">
+                        <Image
+                            src={item.homepageGameImage || "/assets/ss01.png"}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-all duration-500 hover:scale-110"
+                          />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
