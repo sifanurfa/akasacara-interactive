@@ -81,20 +81,20 @@ const PopularGame: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col relative pb-section items-center gap-[-40px] self-stretch">
-      <div className="flex relative w-full aspect-video overflow-hidden flex-col items-center gap-2.5 self-stretch">
+    <div className="flex flex-col relative pb-section items-center overflow-hidden">
+      <div className="flex relative w-full h-[600px] lg:h-screen aspect-video overflow-hidden flex-col items-center gap-2.5 self-stretch">
         {popularGame.fullImage[currentIndex] && (
           <Image
             src={popularGame.fullImage[currentIndex]}
             alt={popularGame.title}
             fill
-            className="object-cover transition-all duration-500"
+            className="object-cover transition-all duration-500 relative flex flex-col justify-center items-center self-stretch"
           />
         )}
 
-        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
-        <div className="absolute inset-y-0 h-screen left-0 w-2/3 px-[89px] z-10 flex flex-col items-start justify-center gap-8">
+        <div className="absolute inset-y-0 h-[570px] lg:h-screen left-0 w-full xl:w-2/3 px-[40px] lg:px-[89px] z-10 flex flex-col items-start justify-center gap-8 self-stretch">
           <div className="flex flex-col justify-center items-start gap-md self-stretch">
             <div className="flex flex-col items-start self-stretch">
               <div className="flex items-center gap-s">
@@ -109,13 +109,13 @@ const PopularGame: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex flex-col items-start self-stretch">
-              <div className="headline-1 vfx-text-title self-stretch">
+            <div className="flex-2 flex flex-col xl:justify-center justify-between items-start self-stretch">
+              <div className="headline-1 vfx-text-title">
                 {popularGame.title}
               </div>
             </div>
 
-            <div className="sub-heading-reg vfx-text-subtitle-1 self-stretch">
+            <div className="sub-heading-reg vfx-text-subtitle-1">
               {popularGame.description}
             </div>
           </div>

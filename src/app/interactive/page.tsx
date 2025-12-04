@@ -26,9 +26,11 @@ const Home = () => {
     fetchData();
   }, []);
 
-  return (
+  return ( 
     <div className="relative bg-interactive overflow-hidden">
+      {/* NAVBAR */}
       <Navbar />
+      
       {/* SHOWREEL */}
       {showreel && (
         <section className="showreel relative w-screen h-screen overflow-hidden">

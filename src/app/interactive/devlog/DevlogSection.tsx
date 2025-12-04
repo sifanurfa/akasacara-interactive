@@ -88,7 +88,7 @@ export default function DevlogSection() {
   return (
     <section className="self-stretch py-section flex flex-col items-center gap-section">
       {/* MENU */}
-      <div className="flex flex-wrap justify-evenly items-center gap-x-20 gap-y-4">
+      <div className="flex flex-wrap justify-evenly items-center gap-xl md:gap-2xl lg:gap-x-20 gap-y-4">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -106,7 +106,7 @@ export default function DevlogSection() {
 
       {/* LIST DEVLOG - NEWS - VIDEOS */}
       {activeTab === "Videos" ? (
-        <div className="self-stretch flex flex-col gap-xl items-center">
+        <div className="self-stretch flex flex-col gap-xs md:gap-m lg:gap-xl items-center">
           {getCurrentSlideArticles().map((item) => (
             <VideoCard
               key={item.id}

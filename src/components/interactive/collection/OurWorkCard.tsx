@@ -25,10 +25,10 @@ function OurWorkCard({ title, description, image }: OurWorkCardProps) {
       </div>
 
       <div className="flex flex-col items-start w-1/2 gap-m group-hover:w-1/4 transition-all duration-500">
-        <div className="headline-3 vfx-text-title group-hover:opacity-0  group-hover:h-0 transition-all duration-300">
+        <div className="text-10 md:text-20 lg:headline-3 vfx-text-title group-hover:opacity-0  group-hover:h-0 transition-all duration-300">
           {title}
         </div>
-        <div className="body-reg vfx-text-title group-hover:translate-x-4 transition-all duration-500">
+        <div className="text-6 md:text-12 body-reg vfx-text-title group-hover:translate-x-4 transition-all duration-500">
           {description}
         </div>
       </div>
