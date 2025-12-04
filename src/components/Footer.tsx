@@ -197,9 +197,9 @@ export default function Footer() {
           <div className="self-stretch flex flex-col justify-center md:items-end items-start">
             <div className="flex flex-wrap items-center md:justify-end justify-start gap-x-4 md:gap-x-8 gap-y-4 md:gap-y-6 text-white">
               {[
-                { label: "Akasacara Film", href: "/main", bold: true },
-                { label: "LodhongKrupuk VFX", href: "/vfx", bold: false },
-                { label: "LodhongKrupuk Interactive", href: "/interactive", bold: false },
+                { label: "Akasacara Film", href: "https://film.akasacara.web.id/", bold: true },
+                { label: "LodhongKrupuk VFX", href: "https://vfx.akasacara.web.id/", bold: false },
+                { label: "LodhongKrupuk Interactive", href: "https://interactive.akasacara.web.id/", bold: false },
                 { label: "Inquiry", href: "/inquiry", bold: false },
               ].map((item) => (
                 <Link
